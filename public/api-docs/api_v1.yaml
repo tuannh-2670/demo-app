@@ -1,0 +1,19 @@
+---
+openapi: 3.0.1
+info:
+  description: "API for App"
+  title: "Demo API V1"
+host: <%= ENV["SERVER_DOMAIN"] %>
+components:
+  securitySchemes:
+    JWTAuthorization:
+      type: apiKey
+      in: header
+      name: JWTAuthorization
+      description: User's authentication token
+security:
+  - JWTAuthorization: []
+paths:
+  # Tag Supports
+  /health-check:
+    $ref: "paths/health_check.yaml"

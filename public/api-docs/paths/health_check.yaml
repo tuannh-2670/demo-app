@@ -1,0 +1,12 @@
+get:
+  summary: Health Check
+  tags:
+    - Supports
+  description: Use this API to health check
+  responses:
+    200:
+      description: Health Check
+      content:
+        application/json:
+          schema:
+            type: object
