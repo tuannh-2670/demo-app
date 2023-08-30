@@ -1,0 +1,21 @@
+FROM ruby:2.6.5-alpine3.11
+
+RUN apk add --no-cache --update build-base mariadb-dev tzdata imagemagick
+
+ENV APP_DIR /usr/local/demo_app
+RUN mkdir -p $APP_DIR
+WORKDIR $APP_DIR
+
+COPY Gemfile $APP_DIR/Gemfile
+COPY Gemfile.lock $APP_DIR/Gemfile.lock
+RUN gem install bundler:2.2.3
+RUN bundle install
+
+COPY . $APP_DIR
+
+COPY docker/api/entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]

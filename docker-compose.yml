@@ -1,0 +1,83 @@
+version: "3"
+
+services:
+  api1:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile.api1
+    env_file: .env
+    volumes:
+      - api1:/usr/local/demo_app
+    ports:
+      - 3001:3000
+    depends_on:
+      - db
+    networks:
+      - my_network
+  api2:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile.api2
+    env_file: .env
+    volumes:
+      - api2:/usr/local/demo_app
+    ports:
+      - 3002:3000
+    depends_on:
+      - api1
+    networks:
+      - my_network
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - my_network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    networks:
+      - my_network
+  worker:
+    build:
+      context: .
+      dockerfile: docker/worker/Dockerfile
+    env_file: .env
+    volumes:
+      - log-data:/usr/local/demo_app/log
+    networks:
+      - my_network
+    depends_on:
+      - redis
+      - db
+  reverse-proxy:
+    restart: always
+    container_name: reverse-proxy
+    build:
+      context: .
+      dockerfile: docker/reverse-proxy/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - api1
+      - api2
+    networks:
+      - my_network
+
+volumes:
+  log-data:
+  db-data:
+  redis-data:
+  api1:
+  api2:
+
+networks:
+  my_network:
