@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     root to: redirect("/api-docs/v1")
   end
 
-  get "health-check", to: "health_check#index"
+  get "health_check", to: "health_check#index"
+  get "unba", to: "unba#index"
 end

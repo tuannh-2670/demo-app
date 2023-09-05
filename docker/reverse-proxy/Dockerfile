@@ -1,7 +1,6 @@
 FROM nginx:stable-alpine
 
-RUN apk update \
-    && apk add openssl
+RUN apk update && apk add openssl
 
 ENV APP_ROOT /opt/app
 

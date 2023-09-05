@@ -15,5 +15,7 @@ security:
   - JWTAuthorization: []
 paths:
   # Tag Supports
-  /health-check:
+  /health_check:
     $ref: "paths/health_check.yaml"
+  /unba:
+    $ref: "paths/unba.yaml"

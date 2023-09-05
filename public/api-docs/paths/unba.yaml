@@ -1,0 +1,12 @@
+get:
+  summary: No basic authen api
+  tags:
+    - Supports
+  description: Use this API to call request with no basic authen
+  responses:
+    200:
+      description: No basic authen
+      content:
+        application/json:
+          schema:
+            type: object
