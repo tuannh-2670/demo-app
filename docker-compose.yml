@@ -64,6 +64,8 @@ services:
     build:
       context: .
       dockerfile: docker/reverse-proxy/Dockerfile
+    volumes:
+      - nginx-public:/opt/app/public
     ports:
       - 80:80
     depends_on:
@@ -78,6 +80,7 @@ volumes:
   redis-data:
   api1:
   api2:
+  nginx-public:
 
 networks:
   my_network:

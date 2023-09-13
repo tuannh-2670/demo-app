@@ -13,7 +13,7 @@ RUN mkdir log
 COPY docker/reverse-proxy/nginx.conf /tmp/docker.nginx
 COPY docker/reverse-proxy/gen_htpasswd.sh /etc/nginx
 
-COPY public public/
+COPY public $APP_ROOT/public
 
 RUN envsubst '$APP_ROOT' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf
 RUN chmod +x /etc/nginx/gen_htpasswd.sh && /etc/nginx/gen_htpasswd.sh

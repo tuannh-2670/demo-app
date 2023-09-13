@@ -11,6 +11,7 @@ components:
       in: header
       name: JWTAuthorization
       description: User's authentication token
+
 security:
   - JWTAuthorization: []
 paths:
