@@ -1,6 +1,6 @@
 FROM nginx:stable-alpine
 
-RUN apk update && apk add openssl
+RUN apk update && apk add openssl nano
 
 ENV APP_ROOT /opt/app
 

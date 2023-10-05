@@ -66,6 +66,7 @@ services:
       dockerfile: docker/reverse-proxy/Dockerfile
     volumes:
       - nginx-public:/opt/app/public
+      - nginx-cache:/var/cache/nginx
     ports:
       - 80:80
     depends_on:
@@ -81,6 +82,7 @@ volumes:
   api1:
   api2:
   nginx-public:
+  nginx-cache:
 
 networks:
   my_network:
